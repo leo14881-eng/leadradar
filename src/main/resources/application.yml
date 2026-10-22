@@ -1,10 +1,30 @@
 server:
   port: 8088
 
+spring:
+  datasource:
+    # 默认用本地 H2 文件库（./data/leadradar.mv.db）；上线换 PostgreSQL 只需改这三行
+    url: ${DB_URL:jdbc:h2:file:./data/leadradar;MODE=PostgreSQL;AUTO_SERVER=TRUE}
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:}
+  sql:
+    init:
+      mode: always
+
 leadradar:
   poll-interval: PT1M
   telegram:
     bot-token: ${TELEGRAM_BOT_TOKEN:}
+  llm:
+    # none = 不调模型（验证期默认）；claude / openai 需设置 LLM_API_KEY
+    provider: ${LLM_PROVIDER:none}
+    api-key: ${LLM_API_KEY:}
+    model: ${LLM_MODEL:}
+    base-url: ${LLM_BASE_URL:}
+    min-score: 60
+  brief:
+    cron: "0 0 21 * * *"
+    zone: Asia/Ho_Chi_Minh
   # 验证期商家配置写在这里；真实联系方式放 application-local.yml（已在 .gitignore）
   merchants:
     - id: demo-chinese-restaurant-q7

@@ -1,0 +1,17 @@
+server:
+  port: 8088
+
+leadradar:
+  poll-interval: PT1M
+  telegram:
+    bot-token: ${TELEGRAM_BOT_TOKEN:}
+  # 验证期商家配置写在这里；真实联系方式放 application-local.yml（已在 .gitignore）
+  merchants:
+    - id: demo-chinese-restaurant-q7
+      name: 示例中餐厅（第7郡）
+      category: 中餐厅
+      districts: [ "Quận 7", "Phú Mỹ Hưng", "Sunrise City" ]
+      keywords: [ "đồ ăn trung quốc", "món trung", "món hoa", "lẩu tứ xuyên", "中餐", "外卖", "火锅" ]
+      exclude-keywords: [ "sang nhượng", "tuyển dụng" ]
+      telegram-chat-id:
+      pitch: 正宗川菜，第7郡免费外送，满50万盾减5万
